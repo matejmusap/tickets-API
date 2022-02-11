@@ -14,18 +14,8 @@ const authenticate = async (req: Request, res: Response, next: NextFunction) => 
     try {
         const decodedToken = jwt.verify(token, process.env.SECRET_KEY as string, {
             complete: true
-        }) as jwt.Jwt;
-        if (
-            decodedToken.payload.data.temoporaryToken &&
-            decodedToken.payload.data.temoporaryToken === true
-        ) {
-            return res.status(401).send({
-                data: {},
-                code: 401,
-                message: 'This token is temporary!.'
-            });
-        }
-        const user = await queries.userQueries.getUserIDById(decodedToken.payload.data.id);
+        }) as jwt.JwtPayload;
+        const user = await queries.authQueries.getUserIDById(decodedToken.payload.data.id);
         if (!user) {
             return res.status(401).send({
                 data: {},
