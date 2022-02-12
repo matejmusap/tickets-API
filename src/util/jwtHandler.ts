@@ -1,5 +1,6 @@
 import { ITokenData } from '../interfaces';
 import jwt from 'jsonwebtoken';
+import { utilException } from '../exceptions';
 
 const generateToken = async (data: ITokenData) => {
     try {
@@ -18,6 +19,7 @@ const generateToken = async (data: ITokenData) => {
         return token;
     } catch (err) {
         console.log(err);
+        throw err as utilException;
     }
 };
 

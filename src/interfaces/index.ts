@@ -11,3 +11,19 @@ export interface IConfig {
 export interface ITokenData {
     id: number;
 }
+export interface IRegisterBody {
+    username: string;
+    email: string;
+    password?: string;
+}
+export interface ILoginBody {
+    email: string;
+    password?: string;
+}
+
+export interface IUserByEmail {
+    token?: string;
+    password?: string;
+    email: string;
+    username: string;
+}

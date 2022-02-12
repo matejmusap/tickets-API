@@ -3,8 +3,13 @@ import bcrypt from 'bcrypt';
 const SALT_ROUNDS = Number(process.env.SALT_ROUND);
 
 const comparePassword = async (password: string, userPassword: string) => {
-    const match = await bcrypt.compare(password, userPassword);
-    return match;
+    try {
+        const match = await bcrypt.compare(password, userPassword);
+        return match;
+    } catch (e) {
+        console.log(e);
+        return e;
+    }
 };
 
 const hashPassword = (password: string): Promise<string> => {

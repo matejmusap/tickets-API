@@ -55,6 +55,7 @@ const definitions = {
     register: {
         example: {
             email: 'email@email.com',
+            username: 'user123',
             password: 'password'
         }
     },
@@ -69,16 +70,26 @@ const definitions = {
 const responses = {
     register: {
         example: {
-            data: {},
+            data: {
+                user: {
+                    email: 'email@email.com',
+                    username: 'user123'
+                }
+            },
             code: 200,
-            message: 'User succefully registred!'
+            message: 'You are Registred in by Email!'
         }
     },
     login: {
         example: {
-            data: {},
+            data: {
+                user: {
+                    email: 'email@email.com',
+                    username: 'user123'
+                }
+            },
             code: 200,
-            message: 'User is logged in!'
+            message: 'You are Logged in!'
         }
     }
 };
