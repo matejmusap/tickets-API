@@ -1,7 +1,7 @@
 {
-    "name": "growy-app",
+    "name": "tickets-api",
     "version": "1.0.0",
-    "description": "Growy App Backend",
+    "description": "Tickets-API",
     "main": "dist/index.js",
     "scripts": {
         "build": "tsc",

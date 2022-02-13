@@ -6,7 +6,8 @@ const getAllTickets = async (): Promise<IAllTickets[] | SQLException> => {
     try {
         const [rows] = await db.query(
             `
-        SELECT tc.company_name AS company, 
+        SELECT tc.company_name AS company,
+                t.id as id.
                 t.from AS point_of_departure,
                 t.destination AS destination,
                 t.departure AS departure,

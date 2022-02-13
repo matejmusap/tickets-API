@@ -27,6 +27,7 @@ export interface IUserByEmail {
     username: string;
 }
 export interface IAllTickets {
+    id: number;
     company: string;
     point_of_departure: string;
     destination: string;
