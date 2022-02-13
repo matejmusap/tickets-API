@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import * as queries from '../../database';
 
-const getTickets = async (_req: Request, res: Response, _next: NextFunction) => {
+const buyTicket = async (_req: Request, res: Response, _next: NextFunction) => {
     try {
         return res.status(200).send({
             data: {},
@@ -18,4 +17,4 @@ const getTickets = async (_req: Request, res: Response, _next: NextFunction) => 
     }
 };
 
-export default getTickets;
+export default buyTicket;
