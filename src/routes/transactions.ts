@@ -1,7 +1,7 @@
 import express from 'express';
 
 import * as transactionsSchemas from '../input-models/transactions';
-import { authenticate, validate } from '../middleware';
+import { authenticate, checkTransactionOwner, validate } from '../middleware';
 import { transactionsController } from '../controllers';
 
 const transactionsRouter = express.Router();
@@ -25,6 +25,7 @@ transactionsRouter.put(
     transactionsSchemas.cancelTicket,
     validate,
     authenticate,
+    checkTransactionOwner,
     transactionsController.cancelTicket
 );
 

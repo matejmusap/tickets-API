@@ -1,7 +1,23 @@
-const buyTicket: never[] = [];
+import { header, param } from 'express-validator';
 
-const getTicketsForUser: never[] = [];
+const buyTicket = [
+    param('ticketID', 'Please provide ticketID').exists({ checkFalsy: true }),
+    header('Authorization', 'Please provide Authorization header (bearer token)').exists({
+        checkFalsy: true
+    })
+];
 
-const cancelTicket: never[] = [];
+const getTicketsForUser = [
+    header('Authorization', 'Please provide Authorization header (bearer token)').exists({
+        checkFalsy: true
+    })
+];
+
+const cancelTicket = [
+    param('ticketID', 'Please provide ticketID').exists({ checkFalsy: true }),
+    header('Authorization', 'Please provide Authorization header (bearer token)').exists({
+        checkFalsy: true
+    })
+];
 
 export { buyTicket, getTicketsForUser, cancelTicket };

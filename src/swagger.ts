@@ -63,6 +63,98 @@ const paths = {
             },
             produces: ['application/json']
         }
+    },
+    '/transactions/buyTicket/{ticketID}': {
+        post: {
+            summary: 'Buy ticket',
+            tags: ['Transaction'],
+            parameters: [
+                {
+                    name: 'Card number in body',
+                    in: 'body',
+                    description: 'Card number in body',
+                    required: true,
+                    schema: {
+                        $ref: '#/definitions/buyTicket'
+                    }
+                },
+                {
+                    name: 'ticketID',
+                    in: 'path',
+                    description: 'Unique ticketID',
+                    required: true,
+                    example: 10
+                },
+                {
+                    name: 'authorization',
+                    in: 'header',
+                    description: 'Bearer token',
+                    required: true,
+                    example: 'Bearer sdlighsghvdshvghku'
+                }
+            ],
+            responses: {
+                '200': {
+                    schema: {
+                        $ref: '#/responses/buyTicket'
+                    }
+                }
+            },
+            produces: ['application/json']
+        }
+    },
+    '/transactions/getTicketsForUser': {
+        get: {
+            summary: 'Get aquired tickets for user',
+            tags: ['Transaction'],
+            parameters: [
+                {
+                    name: 'authorization',
+                    in: 'header',
+                    description: 'Bearer token',
+                    required: true,
+                    example: 'Bearer sdlighsghvdshvghku'
+                }
+            ],
+            responses: {
+                '200': {
+                    schema: {
+                        $ref: '#/responses/getTicketsForUser'
+                    }
+                }
+            },
+            produces: ['application/json']
+        }
+    },
+    '/transactions/cancelTicket/{transactionID}': {
+        put: {
+            summary: 'Cancel ticket',
+            tags: ['Transaction'],
+            parameters: [
+                {
+                    name: 'transactionID',
+                    in: 'path',
+                    description: 'Unique transactionID',
+                    required: true,
+                    example: 10
+                },
+                {
+                    name: 'authorization',
+                    in: 'header',
+                    description: 'Bearer token',
+                    required: true,
+                    example: 'Bearer sdlighsghvdshvghku'
+                }
+            ],
+            responses: {
+                '200': {
+                    schema: {
+                        $ref: '#/responses/cancelTicket'
+                    }
+                }
+            },
+            produces: ['application/json']
+        }
     }
 };
 
@@ -79,6 +171,11 @@ const definitions = {
         example: {
             email: 'email@email.com',
             password: 'password'
+        }
+    },
+    buyTicket: {
+        example: {
+            card_number: '123456789087'
         }
     }
 };
@@ -113,6 +210,66 @@ const responses = {
             data: {},
             code: 200,
             message: 'List of tickets!'
+        }
+    },
+    buyTicket: {
+        example: {
+            data: {
+                data: {
+                    tickets: [
+                        {
+                            company: 'Puntamika Line d.o.o.',
+                            point_of_departure: 'Zadar',
+                            destination: 'Zagreb',
+                            departure: '2022-02-07 08:00:00',
+                            arrival: '2022-02-07 11:30:00',
+                            availability: 'available'
+                        },
+                        {
+                            company: 'Velebit Tours d.o.o.',
+                            point_of_departure: 'Zadar',
+                            destination: 'Zagreb',
+                            departure: '2022-02-07 09:30:00',
+                            arrival: '2022-02-07 13:00:00',
+                            availability: 'available'
+                        },
+                        {
+                            company: 'Puntamika Line d.o.o.',
+                            point_of_departure: 'Zadar',
+                            destination: 'Split',
+                            departure: '2022-02-08 17:25:00',
+                            arrival: '2022-02-08 20:00:00',
+                            availability: 'available'
+                        },
+                        {
+                            company: 'Velebit Tours d.o.o.',
+                            point_of_departure: 'Zadar',
+                            destination: 'Perušić',
+                            departure: '2022-02-08 18:00:00',
+                            arrival: '2022-02-08 19:30:00',
+                            availability: 'available'
+                        }
+                    ]
+                },
+                code: 200,
+                message: 'List of tickets!'
+            },
+            code: 200,
+            message: 'Ticket is bought!'
+        }
+    },
+    getTicketsForUser: {
+        example: {
+            data: {},
+            code: 200,
+            message: 'Tickets bought by one user!'
+        }
+    },
+    cancelTicket: {
+        example: {
+            data: {},
+            code: 200,
+            message: 'Ticket is canceled!'
         }
     }
 };
