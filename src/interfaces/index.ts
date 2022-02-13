@@ -27,7 +27,7 @@ export interface IUserByEmail {
     email: string;
     username: string;
 }
-export interface IAllTickets {
+export interface ITicket {
     id: number;
     company: string;
     point_of_departure: string;
@@ -35,4 +35,5 @@ export interface IAllTickets {
     departure: string;
     arrival: string;
     availability: Availability;
+    price: number;
 }

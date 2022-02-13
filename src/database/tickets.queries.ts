@@ -1,8 +1,8 @@
 import { SQLException } from '../exceptions';
-import { IAllTickets } from '../interfaces';
+import { ITicket } from '../interfaces';
 import db from './connection';
 
-const getAllTickets = async (): Promise<IAllTickets[] | SQLException> => {
+const getAllTickets = async (): Promise<ITicket[] | SQLException> => {
     try {
         const [rows] = await db.query(
             `
@@ -12,6 +12,7 @@ const getAllTickets = async (): Promise<IAllTickets[] | SQLException> => {
                 t.destination AS destination,
                 t.departure AS departure,
                 t.arrival AS arrival,
+                r.price as price
             (CASE
                 WHEN t.number_of_seats > 0 THEN 'available'
                 ELSE 'not_available'
