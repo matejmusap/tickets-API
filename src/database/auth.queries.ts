@@ -69,9 +69,9 @@ const createUser = async (
 ): Promise<number | SQLException> => {
     try {
         const [rows] = await db.query(
-            `INSERT INTO users (email, username, password)
-                VALUES (?, ?, ?);`,
-            [body.email, body.username, hashedPassword]
+            `INSERT INTO users (email, username, password, card_number)
+                VALUES (?, ?, ?, ?);`,
+            [body.email, body.username, hashedPassword, body.card_number]
         );
         const data = Object.entries(rows);
         const userID = data[2][1];

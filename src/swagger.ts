@@ -71,7 +71,8 @@ const definitions = {
         example: {
             email: 'email@email.com',
             username: 'user123',
-            password: 'password'
+            password: 'password',
+            card_number: '123456789123'
         }
     },
     login: {

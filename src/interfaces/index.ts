@@ -15,6 +15,7 @@ export interface IRegisterBody {
     username: string;
     email: string;
     password?: string;
+    card_number?: string;
 }
 export interface ILoginBody {
     email: string;

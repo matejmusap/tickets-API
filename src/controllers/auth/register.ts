@@ -12,6 +12,7 @@ const register = async (req: Request, res: Response, _next: NextFunction) => {
             const hashedPassword = await managePassword.hashPassword(body.password as string);
             delete body.password;
             const userID = await queries.authQueries.createUser(body, hashedPassword);
+            delete body.card_number;
             const token = await jwtHandler.generateToken({
                 id: userID as number
             });
