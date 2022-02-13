@@ -2,10 +2,12 @@ import express, { Request, Response } from 'express';
 import swaggerUi from 'swagger-ui-express';
 import { generateDocumentation } from '../swagger';
 import authRouter from './auth';
+import ticketsRouter from './tickets';
 
 const router = express.Router();
 
 router.use('/auth', authRouter);
+router.use('/tickets', ticketsRouter);
 
 const documentation = generateDocumentation();
 router.use('/', swaggerUi.serve);

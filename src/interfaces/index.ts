@@ -1,4 +1,4 @@
-import { CanBeUndefined } from '../types';
+import { Availability, CanBeUndefined } from '../types';
 
 export interface IENV {
     NODE_ENV: CanBeUndefined<string>;
@@ -20,10 +20,17 @@ export interface ILoginBody {
     email: string;
     password?: string;
 }
-
 export interface IUserByEmail {
     token?: string;
     password?: string;
     email: string;
     username: string;
+}
+export interface IAllTickets {
+    company: string;
+    point_of_departure: string;
+    destination: string;
+    departure: string;
+    arrival: string;
+    availability: Availability;
 }

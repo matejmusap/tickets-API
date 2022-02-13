@@ -9,3 +9,4 @@ export type QueryResponse =
     | OkPacket[]
     | ResultSetHeader;
 export type MySQLBoolean = 0 | 1;
+export type Availability = 'available' | 'not_available';

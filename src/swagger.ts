@@ -48,6 +48,21 @@ const paths = {
             },
             produces: ['application/json']
         }
+    },
+    '/tickets/getTickets': {
+        get: {
+            summary: 'Get all ticekts',
+            tags: ['Tickets'],
+            parameters: [],
+            responses: {
+                '200': {
+                    schema: {
+                        $ref: '#/responses/getTickets'
+                    }
+                }
+            },
+            produces: ['application/json']
+        }
     }
 };
 
@@ -90,6 +105,13 @@ const responses = {
             },
             code: 200,
             message: 'You are Logged in!'
+        }
+    },
+    getTickets: {
+        example: {
+            data: {},
+            code: 200,
+            message: 'List of tickets!'
         }
     }
 };
