@@ -27,6 +27,7 @@ SALT_ROUNDS
 To install depedencies run npm i
 Build code with command nopm run build
 Start app with npm run start
-Call endpoint to create tables and create tickets and companies GET /addTablesAndData 
+
+Run queries from SQL files to create tables and add 2 companies and 4 tickets
 
 Use Swagger or other tool to use endpoints.
