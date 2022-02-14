@@ -9,7 +9,6 @@ const cancelTicket = async (req: Request, res: Response, _next: NextFunction) =>
         const departure = DateTime.fromSQL(
             (await queries.transactionsQueries.getDepartureTime(code)) as string
         );
-        console.log(departure);
         const diff =
             Math.floor(departure.diff(now, ['hours']).toObject().hours as number) > 1
                 ? true
