@@ -90,7 +90,7 @@ const checkCard = async (
         const [rows] = await db.query(
             `
             SELECT EXISTS(SELECT id FROM users
-            WHERE user_id = ? AND card_number = ?) as exist;
+            WHERE id = ? AND card_number = ?) as exist;
         `,
             [userID, card_number]
         );

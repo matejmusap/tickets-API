@@ -6,7 +6,6 @@ import db from './connection';
 const getAllTickets = async (): Promise<ITicket[] | SQLException> => {
     try {
         const now = DateTime.now().toSQL();
-        console.log(now)
         const [rows] = await db.query(
             `
         SELECT tc.company_name AS company,
@@ -66,15 +65,15 @@ const decreaseNumberOfSeat = async (ticketID: number): Promise<void | SQLExcepti
     }
 };
 
-const increaseNumberOfSeat = async (transactionID: number): Promise<void | SQLException> => {
+const increaseNumberOfSeat = async (code: string): Promise<void | SQLException> => {
     try {
         await db.query(
             `
             UPDATE tickets 
             SET number_of_seats = number_of_seats + 1 
-            WHERE id = (SELECT ticket_id FROM transactions WHERE id = ?)
+            WHERE id = (SELECT ticket_id FROM transactions WHERE code = ?)
         `,
-            [transactionID]
+            [code]
         );
     } catch (e: unknown) {
         console.log(e);

@@ -21,7 +21,7 @@ transactionsRouter.get(
     transactionsController.getTicketsForUser
 );
 transactionsRouter.put(
-    '/cancelTicket/:transactionID',
+    '/cancelTicket/:code',
     transactionsSchemas.cancelTicket,
     validate,
     authenticate,

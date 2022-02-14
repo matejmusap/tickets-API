@@ -14,7 +14,7 @@ const getTicketsForUser = [
 ];
 
 const cancelTicket = [
-    param('ticketID', 'Please provide ticketID').exists({ checkFalsy: true }),
+    param('code', 'Please provide code').exists({ checkFalsy: true }),
     header('Authorization', 'Please provide Authorization header (bearer token)').exists({
         checkFalsy: true
     })

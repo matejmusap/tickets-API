@@ -126,17 +126,17 @@ const paths = {
             produces: ['application/json']
         }
     },
-    '/transactions/cancelTicket/{transactionID}': {
+    '/transactions/cancelTicket/{code}': {
         put: {
             summary: 'Cancel ticket',
             tags: ['Transaction'],
             parameters: [
                 {
-                    name: 'transactionID',
+                    name: 'code',
                     in: 'path',
-                    description: 'Unique transactionID',
+                    description: 'Unique code',
                     required: true,
-                    example: 10
+                    example: 'dfsuihfudshf'
                 },
                 {
                     name: 'authorization',
