@@ -51,7 +51,7 @@ const paths = {
     },
     '/tickets/getTickets': {
         get: {
-            summary: 'Get all ticekts',
+            summary: 'Get all ticekts that did not depart',
             tags: ['Tickets'],
             parameters: [],
             responses: {

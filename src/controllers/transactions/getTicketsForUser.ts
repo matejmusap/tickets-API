@@ -4,7 +4,7 @@ import * as queries from '../../database';
 const getTicketsForUser = async (req: Request, res: Response, _next: NextFunction) => {
     try {
         const user = req.user;
-        const transactions = await queries.transactionQueries.getTicketsForUser(user.id);
+        const transactions = await queries.transactionsQueries.getTicketsForUser(user.id);
         return res.status(200).send({
             data: { transactions },
             code: 200,

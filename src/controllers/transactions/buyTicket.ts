@@ -14,16 +14,31 @@ const buyTicket = async (req: Request, res: Response, _next: NextFunction) => {
                 message: 'Card is not valid or not belongs to user!'
             });
         }
-        const transaction = await queries.transactionQueries.createTransaction(
-            user.id,
-            card_number,
-            ticketID
-        );
-        return res.status(200).send({
-            data: { transaction },
-            code: 200,
-            message: 'Ticket is bought!'
-        });
+        const checkAvailableSeats = await queries.ticketsQueries.getNumberOfSeats(ticketID);
+        if (checkAvailableSeats > 0) {
+            const transaction = await queries.transactionsQueries.createTransaction(
+                user.id,
+                'Bought',
+                ticketID
+            );
+            await queries.ticketsQueries.decreaseNumberOfSeat(ticketID);
+            return res.status(200).send({
+                data: { transaction },
+                code: 200,
+                message: 'Ticket is bought!'
+            });
+        } else {
+            const transaction = await queries.transactionsQueries.createTransaction(
+                user.id,
+                'Rejected',
+                ticketID
+            );
+            return res.status(200).send({
+                data: { transaction },
+                code: 200,
+                message: 'Your transaction is rejected. No more free space in bus!'
+            });
+        }
     } catch (e) {
         console.log(e);
         return res.status(400).send({

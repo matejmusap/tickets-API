@@ -7,7 +7,7 @@ const cancelTicket = async (req: Request, res: Response, _next: NextFunction) =>
         const transactionID = +req.params.transactionID;
         const end = DateTime.now();
         const start = DateTime.fromISO(
-            await queries.transactionQueries.getDepartureTime(transactionID)
+            (await queries.transactionsQueries.getDepartureTime(transactionID)) as string
         );
         const diff =
             Math.floor(end.diff(start, ['hours']).toObject().hours as number) > 1 ? true : false;
@@ -18,7 +18,7 @@ const cancelTicket = async (req: Request, res: Response, _next: NextFunction) =>
                 message: 'You can cancel ticket minimum one hour before!'
             });
         }
-        await queries.transactionQueries.cancelTransaction(transactionID);
+        await queries.transactionsQueries.cancelTransaction(transactionID);
         return res.status(200).send({
             data: {},
             code: 200,

@@ -1,4 +1,4 @@
-import { Availability, CanBeUndefined } from '../types';
+import { Availability, CanBeUndefined, TicketStatus } from '../types';
 
 export interface IENV {
     NODE_ENV: CanBeUndefined<string>;
@@ -36,4 +36,15 @@ export interface ITicket {
     arrival: string;
     availability: Availability;
     price: number;
+}
+export interface ITransaction {
+    username: string;
+    email: string;
+    amount: number;
+    status: TicketStatus;
+    from: string;
+    destination: string;
+    departure: string;
+    arrival: string;
+    company_name: string;
 }

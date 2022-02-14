@@ -82,4 +82,24 @@ const createUser = async (
     }
 };
 
-export { getUserIDById, getEmailUserByEmail, checkIfUserExist, createUser };
+const checkCard = async (
+    userID: number,
+    card_number: string
+): Promise<MySQLBoolean | SQLException> => {
+    try {
+        const [rows] = await db.query(
+            `
+            SELECT EXISTS(SELECT id FROM users
+            WHERE user_id = ? AND card_number = ?) as exist;
+        `,
+            [userID, card_number]
+        );
+        const reponse: MySQLBoolean = Object.values(rows)[0].exist;
+        return reponse;
+    } catch (e: unknown) {
+        console.log(e);
+        throw e as SQLException;
+    }
+};
+
+export { getUserIDById, getEmailUserByEmail, checkIfUserExist, createUser, checkCard };
