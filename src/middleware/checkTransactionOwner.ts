@@ -4,10 +4,10 @@ import * as queries from '../database';
 const checkTransactionOwner = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const user = req.user;
-        const transactionID = +req.params.transactionID;
-        const checkIsUserOwner = await queries.transactionsQueries.checkIsUserOwner(
+        const code = req.params.code;
+        const checkIsUserOwner = await queries.transactionsQueries.checkIsUserOwnerCode(
             user.id,
-            transactionID
+            code
         );
         if (!checkIsUserOwner) {
             return res.status(401).send({

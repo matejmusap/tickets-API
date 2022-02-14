@@ -28,13 +28,9 @@ const buyTicket = async (req: Request, res: Response, _next: NextFunction) => {
                 message: 'Ticket is bought!'
             });
         } else {
-            const transaction = await queries.transactionsQueries.createTransaction(
-                user.id,
-                'Rejected',
-                ticketID
-            );
+            await queries.transactionsQueries.createTransaction(user.id, 'Rejected', ticketID);
             return res.status(200).send({
-                data: { transaction },
+                data: {},
                 code: 200,
                 message: 'Your transaction is rejected. No more free space in bus!'
             });

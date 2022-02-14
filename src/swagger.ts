@@ -207,7 +207,42 @@ const responses = {
     },
     getTickets: {
         example: {
-            data: {},
+            data: {
+                tickets: [
+                    {
+                        company: 'Puntamika Line d.o.o.',
+                        point_of_departure: 'Zadar',
+                        destination: 'Zagreb',
+                        departure: '2022-02-07 08:00:00',
+                        arrival: '2022-02-07 11:30:00',
+                        availability: 'available'
+                    },
+                    {
+                        company: 'Velebit Tours d.o.o.',
+                        point_of_departure: 'Zadar',
+                        destination: 'Zagreb',
+                        departure: '2022-02-07 09:30:00',
+                        arrival: '2022-02-07 13:00:00',
+                        availability: 'available'
+                    },
+                    {
+                        company: 'Puntamika Line d.o.o.',
+                        point_of_departure: 'Zadar',
+                        destination: 'Split',
+                        departure: '2022-02-08 17:25:00',
+                        arrival: '2022-02-08 20:00:00',
+                        availability: 'available'
+                    },
+                    {
+                        company: 'Velebit Tours d.o.o.',
+                        point_of_departure: 'Zadar',
+                        destination: 'Perušić',
+                        departure: '2022-02-08 18:00:00',
+                        arrival: '2022-02-08 19:30:00',
+                        availability: 'available'
+                    }
+                ]
+            },
             code: 200,
             message: 'List of tickets!'
         }
@@ -215,44 +250,17 @@ const responses = {
     buyTicket: {
         example: {
             data: {
-                data: {
-                    tickets: [
-                        {
-                            company: 'Puntamika Line d.o.o.',
-                            point_of_departure: 'Zadar',
-                            destination: 'Zagreb',
-                            departure: '2022-02-07 08:00:00',
-                            arrival: '2022-02-07 11:30:00',
-                            availability: 'available'
-                        },
-                        {
-                            company: 'Velebit Tours d.o.o.',
-                            point_of_departure: 'Zadar',
-                            destination: 'Zagreb',
-                            departure: '2022-02-07 09:30:00',
-                            arrival: '2022-02-07 13:00:00',
-                            availability: 'available'
-                        },
-                        {
-                            company: 'Puntamika Line d.o.o.',
-                            point_of_departure: 'Zadar',
-                            destination: 'Split',
-                            departure: '2022-02-08 17:25:00',
-                            arrival: '2022-02-08 20:00:00',
-                            availability: 'available'
-                        },
-                        {
-                            company: 'Velebit Tours d.o.o.',
-                            point_of_departure: 'Zadar',
-                            destination: 'Perušić',
-                            departure: '2022-02-08 18:00:00',
-                            arrival: '2022-02-08 19:30:00',
-                            availability: 'available'
-                        }
-                    ]
-                },
-                code: 200,
-                message: 'List of tickets!'
+                transaction: {
+                    username: 'user123',
+                    email: 'email@email.com',
+                    amount: 50,
+                    status: 'Bought',
+                    from: 'Zadar',
+                    destination: 'Zagreb',
+                    departure: '2022-02-18 08:00:00',
+                    arrival: '2022-02-18 11:30:00',
+                    company_name: 'Puntamika Line d.o.o.'
+                }
             },
             code: 200,
             message: 'Ticket is bought!'
@@ -260,7 +268,82 @@ const responses = {
     },
     getTicketsForUser: {
         example: {
-            data: {},
+            data: {
+                transactions: [
+                    {
+                        username: 'user123',
+                        email: 'email@email.com',
+                        amount: 50,
+                        status: 'Bought',
+                        from: 'Zadar',
+                        destination: 'Zagreb',
+                        departure: '2022-02-18 08:00:00',
+                        arrival: '2022-02-18 11:30:00',
+                        company_name: 'Puntamika Line d.o.o.',
+                        code: 'me1oakn1orf'
+                    },
+                    {
+                        username: 'user123',
+                        email: 'email@email.com',
+                        amount: 50,
+                        status: 'Bought',
+                        from: 'Zadar',
+                        destination: 'Zagreb',
+                        departure: '2022-02-18 08:00:00',
+                        arrival: '2022-02-18 11:30:00',
+                        company_name: 'Puntamika Line d.o.o.',
+                        code: 'l41hy3r6jfh'
+                    },
+                    {
+                        username: 'user123',
+                        email: 'email@email.com',
+                        amount: 50,
+                        status: 'Bought',
+                        from: 'Zadar',
+                        destination: 'Zagreb',
+                        departure: '2022-02-18 08:00:00',
+                        arrival: '2022-02-18 11:30:00',
+                        company_name: 'Puntamika Line d.o.o.',
+                        code: 'c2z37zzvha'
+                    },
+                    {
+                        username: 'user123',
+                        email: 'email@email.com',
+                        amount: 50,
+                        status: 'Bought',
+                        from: 'Zadar',
+                        destination: 'Zagreb',
+                        departure: '2022-02-18 08:00:00',
+                        arrival: '2022-02-18 11:30:00',
+                        company_name: 'Puntamika Line d.o.o.',
+                        code: '4b0x85hl6e6'
+                    },
+                    {
+                        username: 'user123',
+                        email: 'email@email.com',
+                        amount: 50,
+                        status: 'Bought',
+                        from: 'Zadar',
+                        destination: 'Zagreb',
+                        departure: '2022-02-18 08:00:00',
+                        arrival: '2022-02-18 11:30:00',
+                        company_name: 'Puntamika Line d.o.o.',
+                        code: '9agaheg6c6e'
+                    },
+                    {
+                        username: 'user123',
+                        email: 'email@email.com',
+                        amount: 50,
+                        status: 'Bought',
+                        from: 'Zadar',
+                        destination: 'Zagreb',
+                        departure: '2022-02-18 08:00:00',
+                        arrival: '2022-02-18 11:30:00',
+                        company_name: 'Puntamika Line d.o.o.',
+                        code: 'qbapql9vd8ep5jr4y4wie'
+                    }
+                ]
+            },
             code: 200,
             message: 'Tickets bought by one user!'
         }

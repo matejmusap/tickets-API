@@ -5,12 +5,15 @@ import * as queries from '../../database';
 const cancelTicket = async (req: Request, res: Response, _next: NextFunction) => {
     try {
         const code = req.params.code;
-        const end = DateTime.now();
-        const start = DateTime.fromISO(
+        const now = DateTime.now();
+        const departure = DateTime.fromSQL(
             (await queries.transactionsQueries.getDepartureTime(code)) as string
         );
+        console.log(departure);
         const diff =
-            Math.floor(end.diff(start, ['hours']).toObject().hours as number) > 1 ? true : false;
+            Math.floor(departure.diff(now, ['hours']).toObject().hours as number) > 1
+                ? true
+                : false;
         if (!diff) {
             return res.status(400).send({
                 data: {},
@@ -29,7 +32,7 @@ const cancelTicket = async (req: Request, res: Response, _next: NextFunction) =>
         return res.status(400).send({
             data: {},
             code: 400,
-            message: 'Something happened on buying ticket!'
+            message: 'Something happened on canceling ticket!'
         });
     }
 };

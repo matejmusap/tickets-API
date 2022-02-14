@@ -1,24 +1,23 @@
-import { ticketsQueries } from '.';
 import { SQLException } from '../exceptions';
 import { ITransaction } from '../interfaces';
 import { MySQLBoolean, TicketStatus } from '../types';
 import { getUniqueCode } from '../util';
 import db from './connection';
 
-const checkIsUserOwner = async (
+const checkIsUserOwnerCode = async (
     userID: number,
-    transactionID: number
+    code: string
 ): Promise<MySQLBoolean | SQLException> => {
     try {
         const [rows] = await db.query(
             `
             SELECT EXISTS(SELECT id FROM transactions
-            WHERE user_id = ? AND transaction_id = ?) as exist;
+            WHERE user_id = ? AND code = ?) as exist;
         `,
-            [userID, transactionID]
+            [userID, code]
         );
-        const reponse: MySQLBoolean = Object.values(rows)[0].exist;
-        return reponse;
+        const response: MySQLBoolean = Object.values(rows)[0].exist;
+        return response;
     } catch (e: unknown) {
         console.log(e);
         throw e as SQLException;
@@ -30,12 +29,12 @@ const checkIfCode = async (code: string): Promise<MySQLBoolean | SQLException> =
         const [rows] = await db.query(
             `
             SELECT EXISTS(SELECT id FROM transactions
-            WHERE  AND code = ?) as exist;
+            WHERE code = ?) as exist;
         `,
             [code]
         );
-        const reponse: MySQLBoolean = Object.values(rows)[0].exist;
-        return reponse;
+        const response: MySQLBoolean = Object.values(rows)[0].exist;
+        return response;
     } catch (e: unknown) {
         console.log(e);
         throw e as SQLException;
@@ -63,8 +62,8 @@ const getTransactionByID = async (transactionID: number): Promise<ITransaction |
         `,
             [transactionID]
         );
-        const reponse: ITransaction = Object.values(rows)[0];
-        return reponse;
+        const response: ITransaction = Object.values(rows)[0];
+        return response;
     } catch (e: unknown) {
         console.log(e);
         throw e as SQLException;
@@ -83,9 +82,7 @@ const createTransaction = async (
                 VALUES (?, ?, ?, (SELECT price FROM tickets WHERE id = ?), ?);`,
             [userID, ticketID, status, ticketID, code]
         );
-        const data = Object.entries(rows);
-        const transactionID = data[2][1];
-        const transaction = await getTransactionByID(transactionID);
+        const transaction = await getTransactionByID(Object.entries(rows)[2][1]);
         return transaction;
     } catch (e: unknown) {
         console.log(e);
@@ -106,7 +103,8 @@ const getTicketsForUser = async (userID: number): Promise<ITransaction[] | SQLEx
                 tic.destination, 
                 tic.departure, 
                 tic.arrival, 
-                trancom.company_name 
+                trancom.company_name,
+                transac.code as code
             FROM transactions transac
                 INNER JOIN users u ON u.id = transac.user_id
                 INNER JOIN tickets tic ON tic.id = transac.ticket_id
@@ -115,8 +113,8 @@ const getTicketsForUser = async (userID: number): Promise<ITransaction[] | SQLEx
         `,
             [userID]
         );
-        const reponse: ITransaction[] = Object.values(rows);
-        return reponse;
+        const response: ITransaction[] = Object.values(rows);
+        return response;
     } catch (e: unknown) {
         console.log(e);
         throw e as SQLException;
@@ -134,8 +132,8 @@ const getDepartureTime = async (code: string): Promise<string | SQLException> =>
         `,
             [code]
         );
-        const reponse = Object.values(rows)[0].departure;
-        return reponse;
+        const response = Object.values(rows)[0].departure;
+        return response;
     } catch (e: unknown) {
         console.log(e);
         throw e as SQLException;
@@ -146,11 +144,11 @@ const cancelTransaction = async (code: string): Promise<void | SQLException> => 
     try {
         await db.query(
             `
-            UPDATE tickets SET number_of_seats = number_of_seats + 1 WHERE code = ?
+            UPDATE tickets SET number_of_seats = number_of_seats + 1 WHERE id = (SELECT ticket_id FROM transactions WHERE code = ?);
+            UPDATE transactions SET status = ? WHERE code = ?;
         `,
-            [code]
+            [code, 'Canceled', code]
         );
-        await ticketsQueries.increaseNumberOfSeat(code);
     } catch (e: unknown) {
         console.log(e);
         throw e as SQLException;
@@ -158,10 +156,10 @@ const cancelTransaction = async (code: string): Promise<void | SQLException> => 
 };
 
 export {
-    checkIsUserOwner,
     createTransaction,
     getTicketsForUser,
     getDepartureTime,
     cancelTransaction,
-    checkIfCode
+    checkIfCode,
+    checkIsUserOwnerCode
 };

@@ -35,7 +35,7 @@ CREATE TABLE `tickets` (
   `number_of_seats` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_tickets_company_idx` (`company_id`),
-  CONSTRAINT `fk_tickets_company` FOREIGN KEY (`company_id`) REFERENCES `transport_company` (`id`) ON DELETE CASCADE
+  CONSTRAINT `fk_tickets_company` FOREIGN KEY (`company_id`) REFERENCES `transport_companies` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -50,7 +50,7 @@ CREATE TABLE `transactions` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `ticket_id` int NOT NULL,
-  `code` varchar(15) NOT NULL,
+  `code` varchar(64) NOT NULL,
   `amount` int NOT NULL,
   `status` enum('Bought','Rejected','Canceled') NOT NULL DEFAULT 'Bought',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -64,13 +64,13 @@ CREATE TABLE `transactions` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `transport_company`
+-- Table structure for table `transport_companies`
 --
 
-DROP TABLE IF EXISTS `transport_company`;
+DROP TABLE IF EXISTS `transport_companies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `transport_company` (
+CREATE TABLE `transport_companies` (
   `id` int NOT NULL AUTO_INCREMENT,
   `company_name` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
@@ -114,4 +114,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-14 22:29:37
+-- Dump completed on 2022-02-14 23:05:48

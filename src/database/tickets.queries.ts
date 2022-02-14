@@ -43,8 +43,8 @@ const getNumberOfSeats = async (ticketID: number): Promise<number | SQLException
         `,
             [ticketID]
         );
-        const reponse = Object.values(rows)[0].number_of_seats;
-        return reponse;
+        const response = Object.values(rows)[0].number_of_seats;
+        return response;
     } catch (e: unknown) {
         console.log(e);
         throw e as SQLException;
@@ -55,7 +55,7 @@ const decreaseNumberOfSeat = async (ticketID: number): Promise<void | SQLExcepti
     try {
         await db.query(
             `
-            UPDATE tickets SET number_of_seats = number_of_seats - 1 WHERE id = ?
+            UPDATE tickets SET number_of_seats = number_of_seats - 1 WHERE id = ?;
         `,
             [ticketID]
         );
@@ -65,20 +65,4 @@ const decreaseNumberOfSeat = async (ticketID: number): Promise<void | SQLExcepti
     }
 };
 
-const increaseNumberOfSeat = async (code: string): Promise<void | SQLException> => {
-    try {
-        await db.query(
-            `
-            UPDATE tickets 
-            SET number_of_seats = number_of_seats + 1 
-            WHERE id = (SELECT ticket_id FROM transactions WHERE code = ?)
-        `,
-            [code]
-        );
-    } catch (e: unknown) {
-        console.log(e);
-        throw e as SQLException;
-    }
-};
-
-export { getAllTickets, getNumberOfSeats, decreaseNumberOfSeat, increaseNumberOfSeat };
+export { getAllTickets, getNumberOfSeats, decreaseNumberOfSeat };

@@ -13,8 +13,8 @@ const getUserIDById = async (userID: number): Promise<MySQLBoolean | SQLExceptio
             `,
             [userID]
         );
-        const reponse: MySQLBoolean = Object.values(rows)[0].exist;
-        return reponse;
+        const response: MySQLBoolean = Object.values(rows)[0].exist;
+        return response;
     } catch (e: unknown) {
         console.log(e);
         throw e as SQLException;
@@ -55,8 +55,8 @@ const checkIfUserExist = async (email: string): Promise<MySQLBoolean | SQLExcept
         `,
             [email]
         );
-        const reponse: MySQLBoolean = Object.values(rows)[0].exist;
-        return reponse;
+        const response: MySQLBoolean = Object.values(rows)[0].exist;
+        return response;
     } catch (e: unknown) {
         console.log(e);
         throw e as SQLException;
@@ -94,8 +94,8 @@ const checkCard = async (
         `,
             [userID, card_number]
         );
-        const reponse: MySQLBoolean = Object.values(rows)[0].exist;
-        return reponse;
+        const response: MySQLBoolean = Object.values(rows)[0].exist;
+        return response;
     } catch (e: unknown) {
         console.log(e);
         throw e as SQLException;
